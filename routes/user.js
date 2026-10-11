@@ -11,6 +11,16 @@ const Task = require("../models/Task");
 dotenv.config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const k = process.env.RESEND_API_KEY || "";
+console.log("KEY CHECK:", {
+    length: k.length,
+    startsWith_re: k.startsWith("re_"),
+    first3: k.slice(0, 3),
+    last2: JSON.stringify(k.slice(-2)),
+    hasWhitespace: /\s/.test(k),
+    hasQuotes: /["']/.test(k),
+    hasEquals: k.includes("="),
+});
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://task-management26.netlify.app";
 const MAIL_FROM = process.env.MAIL_FROM || "Tech Info <onboarding@resend.dev>";
 
