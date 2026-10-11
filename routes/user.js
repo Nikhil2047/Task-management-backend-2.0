@@ -15,7 +15,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "https://task-management26.netl
 const MAIL_FROM = process.env.MAIL_FROM || "Tech Info <onboarding@resend.dev>";
 
 router.get("/",(req,res)=>{
-    res.send("User route is working");
+    res.send("User route is working");  
 })
 
 router.post("/signup",async(req,res)=>{
@@ -50,11 +50,6 @@ router.post("/signup",async(req,res)=>{
 
         if (error) {
             console.error("Resend error:", error);
-            return res.status(500).json({ message: "Could not send verification email. Please try again." });
-        }
-
-        if (error) {
-            console.error("Resend error:", error);
             // Remove the user so they can sign up again with the same email
             await User.findByIdAndDelete(user._id);
             return res.json({
@@ -63,16 +58,13 @@ router.post("/signup",async(req,res)=>{
             });
         }
 
-            
-
-
-return res.json({
+        return res.json({
             msg: "Signed up successfully. Check your email to verify your account.",
             success: true,
         });
     } catch (error) {
         console.error("Signup error:", error);
-        
+
         if (error.code === 11000) {
             return res.json({ msg: "Email already registered", success: false });
         }
