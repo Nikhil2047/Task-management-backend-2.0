@@ -8,7 +8,7 @@ const verifyToken = require("../middlewares/verify")
 const allowedRoles = require("../middlewares/permission");
 const Task = require("../models/Task");
 
-dotenv.config();
+dotenv.config()
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const k = process.env.RESEND_API_KEY || "";
