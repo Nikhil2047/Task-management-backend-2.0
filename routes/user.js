@@ -50,6 +50,11 @@ router.post("/signup",async(req,res)=>{
 
         if (error) {
             console.error("Resend error:", error);
+            return res.status(500).json({ message: "Could not send verification email. Please try again." });
+        }
+
+        if (error) {
+            console.error("Resend error:", error);
             // Remove the user so they can sign up again with the same email
             await User.findByIdAndDelete(user._id);
             return res.json({
@@ -57,6 +62,8 @@ router.post("/signup",async(req,res)=>{
                 success: false,
             });
         }
+
+            
 
 
 return res.json({
