@@ -13,6 +13,7 @@ dotenv.config()
 const resend = new Resend(process.env.RESEND_API_KEY);
 const k = process.env.RESEND_API_KEY || "";
 console.log("KEY CHECK:", {
+    key:k,
     length: k.length,
     startsWith_re: k.startsWith("re_"),
     first3: k.slice(0, 3),
