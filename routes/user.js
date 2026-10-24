@@ -22,6 +22,7 @@ console.log("KEY CHECK:", {
     hasQuotes: /["']/.test(k),
     hasEquals: k.includes("="),
 });
+console.log("DEPLOY MARKER 1", new Date().toISOString());
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://task-management26.netlify.app";
 const MAIL_FROM = process.env.MAIL_FROM || "Tech Info <onboarding@resend.dev>";
 
