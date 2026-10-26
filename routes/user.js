@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verify")
 const allowedRoles = require("../middlewares/permission");
 const Task = require("../models/Task");
+const crypto = require("node:crypto");
 
 dotenv.config()
 
