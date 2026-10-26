@@ -10,19 +10,21 @@ const Task = require("../models/Task");
 
 dotenv.config()
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const k = process.env.RESEND_API_KEY || "";
+console.log("DEPLOY MARKER 2", new Date().toISOString());
+console.log("RESEND ENV NAMES:", Object.keys(process.env).filter(n => n.toLowerCase().includes("resend")));
+
+const rawKey = process.env.RESEND_KEY || process.env.RESEND_API_KEY || "";
+const apiKey = rawKey.trim().replace(/[;"'\s]/g, "");
+
 console.log("KEY CHECK:", {
-    key:k,
-    length: k.length,
-    startsWith_re: k.startsWith("re_"),
-    first3: k.slice(0, 3),
-    last2: JSON.stringify(k.slice(-2)),
-    hasWhitespace: /\s/.test(k),
-    hasQuotes: /["']/.test(k),
-    hasEquals: k.includes("="),
+    usingVar: process.env.RESEND_KEY ? "RESEND_KEY" : "RESEND_API_KEY",
+    rawLength: rawKey.length,
+    cleanLength: apiKey.length,
+    fingerprint: crypto.createHash("sha256").update(apiKey).digest("hex").slice(0, 8),
 });
-console.log("DEPLOY MARKER 1", new Date().toISOString());
+
+const resend = new Resend(apiKey);
+
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://task-management26.netlify.app";
 const MAIL_FROM = process.env.MAIL_FROM || "Tech Info <onboarding@resend.dev>";
 
